@@ -16,9 +16,16 @@ export class AppComponent implements OnInit {
 
 
     this.socket.on('new-message', (message) => {
-      //alert(message);
-      this.data.push(parseFloat(message));
+      // alert(message);
 
+      if (parseFloat(message) > 180) { message = parseFloat(message); }
+
+      if (this.data.length == 1) {
+        this.data[0] = parseFloat(message);
+        this.data.push(parseFloat(message));
+      } else {
+        this.data.push(parseFloat(message));
+      }
       this.lineChartLabels.push(formatDate(new Date(), 'MM/dd hh:mm a', 'en-US'));
 
       if (parseFloat(message) > 120) {

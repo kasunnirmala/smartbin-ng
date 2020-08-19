@@ -1,9 +1,41 @@
+<div>
+  <img src="./assets/Ananke.png" alt="" style="width: auto; height: 10%">
+</div>
+<hr>
+<br>
+<br>
 <div class="flex" style="width: 100%; height: 20%;">
   <div class="flex-item">
     <div style="display: block;">
       <canvas baseChart width="400" height="100" [datasets]="lineChartData" [labels]="lineChartLabels"
-        [chartType]="lineChartType"   [colors]="lineChartColors"  [options]="lineChartOptions"></canvas>
+        [chartType]="lineChartType"  [options]="lineChartOptions"></canvas>
     </div>
   </div>
-  
+
+
+  <br>
+  <br>
+  <h3>Temperature</h3>
+  <br>
+  <div class="flex" style="width: 100%; height: 20%;">
+    <div class="flex-item">
+      <div style="display: block;">
+        <canvas baseChart width="400" height="100" [datasets]="lineChartDataDevice01" [labels]="lineChartLabels"
+                [chartType]="lineChartType"   [colors]="lineChartColorsDevice01"  [options]="lineChartOptions"></canvas>
+      </div>
+    </div>
+
+
+    <br>
+    <br>
+    <h3>Humidity</h3>
+    <br>
+    <div class="flex" style="width: 100%; height: 20%;">
+      <div class="flex-item">
+        <div style="display: block;">
+          <canvas baseChart width="400" height="100" [datasets]="lineChartDataDevice02" [labels]="lineChartLabels"
+                  [chartType]="lineChartType"   [colors]="lineChartColorsDevice02"  [options]="lineChartOptions"></canvas>
+        </div>
+      </div>
+
 </div>

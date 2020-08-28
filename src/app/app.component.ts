@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
-import { BaseChartDirective, Color, Label } from 'ng2-charts';
-import { ChartDataSets, ChartOptions } from 'chart.js';
-import { formatDate } from '@angular/common';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Socket} from 'ngx-socket-io';
+import {BaseChartDirective, Color, Label} from 'ng2-charts';
+import {ChartDataSets, ChartOptions} from 'chart.js';
+import {formatDate} from '@angular/common';
 import {DeviceDataService} from './service/device-data.service';
 
 @Component({
@@ -11,58 +11,58 @@ import {DeviceDataService} from './service/device-data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private socket: Socket,private deviceDataService: DeviceDataService) {
-
-
+  constructor(private socket: Socket, private deviceDataService: DeviceDataService) {
 
 
     this.socket.on('ANANKESMARTBIN', (message) => {
+      // var node_id=message.node_id;
+      // console.log(node_id);
       console.log(message);
-if(message){
+      if (message) {
 
-if(message.node_id="ANANKE001") {
-  if (this.data.length == 1) {
-    this.data[0] = parseFloat(message.val);
-    this.data.push(parseFloat(message.val));
-  } else {
-    this.data.push(parseFloat(message.val));
-  }
+        if (message.node_id == 'ANANKE001') {
+          if (this.data.length == 1) {
+            this.data[0] = parseFloat(message.val);
+            this.data.push(parseFloat(message.val));
+          } else {
+            this.data.push(parseFloat(message.val));
+          }
 
-  this.lineChartLabels.push(message.time);
-
-
-  if (parseFloat(message.val) > 120) {
-    this.lineChartColors = [this.greencolor];
-  } else if (parseFloat(message.val) > 80) {
-    this.lineChartColors = [this.bluecolor];
-  } else if (parseFloat(message.val) > 40) {
-    this.lineChartColors = [this.orangecolor];
-  } else {
-    this.lineChartColors = [this.redcolor];
-  }
-}else if(message.node_id=="ANANKE002"){
-  if (this.data2.length == 1) {
-    this.data2[0] = parseFloat(message.val);
-    this.data2.push(parseFloat(message.val));
-  } else {
-    this.data2.push(parseFloat(message.val));
-  }
-
-  this.lineChartLabels2.push(message.time);
+          this.lineChartLabels.push(message.time);
 
 
-  if (parseFloat(message.val) > 120) {
-    this.lineChartColors2 = [this.greencolor];
-  } else if (parseFloat(message.val) > 80) {
-    this.lineChartColors2 = [this.bluecolor];
-  } else if (parseFloat(message.val) > 40) {
-    this.lineChartColors2 = [this.orangecolor];
-  } else {
-    this.lineChartColors2 = [this.redcolor];
-  }
+          if (parseFloat(message.val) > 120) {
+            this.lineChartColors = [this.greencolor];
+          } else if (parseFloat(message.val) > 80) {
+            this.lineChartColors = [this.bluecolor];
+          } else if (parseFloat(message.val) > 40) {
+            this.lineChartColors = [this.orangecolor];
+          } else {
+            this.lineChartColors = [this.redcolor];
+          }
+        } else if (message.node_id == 'ANANKE002') {
+          if (this.data2.length == 1) {
+            this.data2[0] = parseFloat(message.val);
+            this.data2.push(parseFloat(message.val));
+          } else {
+            this.data2.push(parseFloat(message.val));
+          }
 
-}
-}
+          this.lineChartLabels2.push(message.time);
+
+
+          if (parseFloat(message.val) > 120) {
+            this.lineChartColors2 = [this.greencolor];
+          } else if (parseFloat(message.val) > 80) {
+            this.lineChartColors2 = [this.bluecolor];
+          } else if (parseFloat(message.val) > 40) {
+            this.lineChartColors2 = [this.orangecolor];
+          } else {
+            this.lineChartColors2 = [this.redcolor];
+          }
+
+        }
+      }
       // if (parseFloat(message) > 180) { message = parseFloat(message); }
       //
       // if (this.data.length == 1) {
@@ -189,7 +189,6 @@ if(message.node_id="ANANKE001") {
   };
 
 
-
   data = [82];
   public lineChartLabels: Label[] = ['0'];
 
@@ -198,9 +197,12 @@ if(message.node_id="ANANKE001") {
 
 
   public lineChartData: ChartDataSets[] = [
-    { data: this.data, label: 'PET Smart Bin Free Space (cm)', },
+    {data: this.data, label: 'PET Smart Bin Free Space (cm)',},
   ];
 
+  public lineChartData2: ChartDataSets[] = [
+    {data: this.data2, label: 'PET Smart Bin Free Space (cm) - 2',},
+  ];
 
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
@@ -249,8 +251,6 @@ if(message.node_id="ANANKE001") {
       ],
     },
   };
-
-
 
 
   // public lineChartOptions: ChartOptions = {

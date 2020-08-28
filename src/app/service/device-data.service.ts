@@ -4,8 +4,8 @@ import {Observable} from 'rxjs';
 import {deviceDataModel} from '../model/deviceData';
 import {formatDate} from '@angular/common';
 
-export const MAIN_URL = 'http://127.0.0.1:4444';
-// export const MAIN_URL = 'http://138.197.92.157:4444';
+// export const MAIN_URL = 'http://127.0.0.1:4445';
+export const MAIN_URL = 'http://138.197.92.157:4445';
 const URL = '/deviceData';
 
 

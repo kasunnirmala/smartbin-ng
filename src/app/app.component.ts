@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
       console.log(message);
 if(message){
 
-
+if(message.node_id="ANANKE001") {
   if (this.data.length == 1) {
     this.data[0] = parseFloat(message.val);
     this.data.push(parseFloat(message.val));
@@ -40,7 +40,28 @@ if(message){
   } else {
     this.lineChartColors = [this.redcolor];
   }
+}else if(message.node_id=="ANANKE002"){
+  if (this.data2.length == 1) {
+    this.data2[0] = parseFloat(message.val);
+    this.data2.push(parseFloat(message.val));
+  } else {
+    this.data2.push(parseFloat(message.val));
+  }
 
+  this.lineChartLabels2.push(message.time);
+
+
+  if (parseFloat(message.val) > 120) {
+    this.lineChartColors2 = [this.greencolor];
+  } else if (parseFloat(message.val) > 80) {
+    this.lineChartColors2 = [this.bluecolor];
+  } else if (parseFloat(message.val) > 40) {
+    this.lineChartColors2 = [this.orangecolor];
+  } else {
+    this.lineChartColors2 = [this.redcolor];
+  }
+
+}
 }
       // if (parseFloat(message) > 180) { message = parseFloat(message); }
       //
@@ -95,6 +116,38 @@ if(message){
 
 
       });
+
+    this.deviceDataService.getAllByDateAndID('ANANKE002').subscribe(
+      (result) => {
+
+        console.log(result);
+        result.forEach((deviceModel) => {
+
+          if (this.data2.length == 1) {
+            this.data2[0] = parseFloat(deviceModel.val);
+            this.data2.push(parseFloat(deviceModel.val));
+          } else {
+            this.data2.push(parseFloat(deviceModel.val));
+          }
+
+          this.lineChartLabels2.push(deviceModel.time);
+
+
+          if (parseFloat(deviceModel.val) > 120) {
+            this.lineChartColors2 = [this.greencolor];
+          } else if (parseFloat(deviceModel.val) > 80) {
+            this.lineChartColors2 = [this.bluecolor];
+          } else if (parseFloat(deviceModel.val) > 40) {
+            this.lineChartColors2 = [this.orangecolor];
+          } else {
+            this.lineChartColors2 = [this.redcolor];
+          }
+
+
+        });
+
+
+      });
   }
 
 
@@ -139,6 +192,11 @@ if(message){
 
   data = [82];
   public lineChartLabels: Label[] = ['0'];
+
+  data2 = [82];
+  public lineChartLabels2: Label[] = ['0'];
+
+
   public lineChartData: ChartDataSets[] = [
     { data: this.data, label: 'PET Smart Bin Free Space (cm)', },
   ];
@@ -214,6 +272,11 @@ if(message){
   public lineChartColors: Color[] = [
     this.bluecolor
   ];
+
+  public lineChartColors2: Color[] = [
+    this.bluecolor
+  ];
+
 
   ngOnInit() {
   }

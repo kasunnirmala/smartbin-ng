@@ -3,6 +3,7 @@ import { Socket } from 'ngx-socket-io';
 import { BaseChartDirective, Color, Label } from 'ng2-charts';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { formatDate } from '@angular/common';
+import {DeviceDataService} from './service/device-data.service';
 
 @Component({
   selector: 'app-root',
@@ -10,34 +11,90 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private socket: Socket) {
+  constructor(private socket: Socket,private deviceDataService: DeviceDataService) {
 
 
 
 
-    this.socket.on('new-message', (message) => {
-      // alert(message);
+    this.socket.on('ANANKESMARTBIN', (message) => {
+      console.log(message);
+if(message){
 
-      if (parseFloat(message) > 180) { message = parseFloat(message); }
 
-      if (this.data.length == 1) {
-        this.data[0] = parseFloat(message);
-        this.data.push(parseFloat(message));
-      } else {
-        this.data.push(parseFloat(message));
-      }
-      this.lineChartLabels.push(formatDate(new Date(), 'MM/dd hh:mm a', 'en-US'));
+  if (this.data.length == 1) {
+    this.data[0] = parseFloat(message.val);
+    this.data.push(parseFloat(message.val));
+  } else {
+    this.data.push(parseFloat(message.val));
+  }
 
-      if (parseFloat(message) > 120) {
-        this.lineChartColors = [this.greencolor];
-      } else if (parseFloat(message) > 80) {
-        this.lineChartColors = [this.bluecolor];
-      } else if (parseFloat(message) > 40) {
-        this.lineChartColors = [this.orangecolor];
-      } else {
-        this.lineChartColors = [this.redcolor];
-      }
+  this.lineChartLabels.push(message.time);
+
+
+  if (parseFloat(message.val) > 120) {
+    this.lineChartColors = [this.greencolor];
+  } else if (parseFloat(message.val) > 80) {
+    this.lineChartColors = [this.bluecolor];
+  } else if (parseFloat(message.val) > 40) {
+    this.lineChartColors = [this.orangecolor];
+  } else {
+    this.lineChartColors = [this.redcolor];
+  }
+
+}
+      // if (parseFloat(message) > 180) { message = parseFloat(message); }
+      //
+      // if (this.data.length == 1) {
+      //   this.data[0] = parseFloat(message);
+      //   this.data.push(parseFloat(message));
+      // } else {
+      //   this.data.push(parseFloat(message));
+      // }
+      // this.lineChartLabels.push(formatDate(new Date(), 'MM/dd hh:mm a', 'en-US'));
+      //
+      // if (parseFloat(message) > 120) {
+      //   this.lineChartColors = [this.greencolor];
+      // } else if (parseFloat(message) > 80) {
+      //   this.lineChartColors = [this.bluecolor];
+      // } else if (parseFloat(message) > 40) {
+      //   this.lineChartColors = [this.orangecolor];
+      // } else {
+      //   this.lineChartColors = [this.redcolor];
+      // }
     });
+
+
+    this.deviceDataService.getAllByDateAndID('ANANKE001').subscribe(
+      (result) => {
+
+        console.log(result);
+        result.forEach((deviceModel) => {
+
+          if (this.data.length == 1) {
+            this.data[0] = parseFloat(deviceModel.val);
+            this.data.push(parseFloat(deviceModel.val));
+          } else {
+            this.data.push(parseFloat(deviceModel.val));
+          }
+
+          this.lineChartLabels.push(deviceModel.time);
+
+
+          if (parseFloat(deviceModel.val) > 120) {
+            this.lineChartColors = [this.greencolor];
+          } else if (parseFloat(deviceModel.val) > 80) {
+            this.lineChartColors = [this.bluecolor];
+          } else if (parseFloat(deviceModel.val) > 40) {
+            this.lineChartColors = [this.orangecolor];
+          } else {
+            this.lineChartColors = [this.redcolor];
+          }
+
+
+        });
+
+
+      });
   }
 
 

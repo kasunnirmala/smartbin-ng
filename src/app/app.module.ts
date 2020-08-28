@@ -5,7 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { ChartsModule } from 'ng2-charts';
-const config: SocketIoConfig = { url: 'http://68.183.227.133:4567', options: {} };
+import {HttpClientModule} from '@angular/common/http';
+
+const config: SocketIoConfig = { url: 'http://138.197.92.157:4445', options: {} };
+
+
+// const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +19,8 @@ const config: SocketIoConfig = { url: 'http://68.183.227.133:4567', options: {} 
     BrowserModule,
     AppRoutingModule,
      SocketIoModule.forRoot(config),
-    ChartsModule
+    ChartsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

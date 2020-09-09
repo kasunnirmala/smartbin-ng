@@ -201,7 +201,7 @@ export class AppComponent implements OnInit {
   ];
 
   public lineChartData2: ChartDataSets[] = [
-    {data: this.data2, label: 'PET Smart Bin Free Space (cm) - 2',},
+    {data: this.data2, label: 'PET Smart Bin Free Space (cm)',},
   ];
 
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
